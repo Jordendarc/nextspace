@@ -5,7 +5,7 @@ import styles from '@/components/Posts/Post.module.css';
 import { PostWithAuthor } from "@/utils/types";
 
 async function getBlogPosts() {
-    const posts = await fetch(`/api/posts`, {
+    const posts = await fetch(process.env.NEXT_PUBLIC_URL +  `/api/posts`, {
         headers: {
             Cookie: cookies().toString(),
         },

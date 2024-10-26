@@ -46,7 +46,7 @@ export async function generateStaticParams() {
     return posts.map((post: Post) => ({ slug: post.slug }));
 }
 export default async function BlogPostPage({ params }: Props) {
-    const posts = await fetch(`/api/content`).then((res) => res.json());
+    const posts = await fetch(process.env.NEXT_PUBLIC_URL +  `/api/content`).then((res) => res.json());
     const post = posts.find((post: Post) => post.slug === params.slug);
 
     return (

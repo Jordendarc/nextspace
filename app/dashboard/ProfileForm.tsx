@@ -18,7 +18,7 @@ export function ProfileForm({user}: Props) {
       image: formData.get("image"),
     };
 
-    const res = await fetch("/api/user", {
+    const res = await fetch(process.env.NEXT_PUBLIC_URL +  "/api/user", {
       method: "PUT",
       body: JSON.stringify(body),
       headers: {
