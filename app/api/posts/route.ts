@@ -1,13 +1,10 @@
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { withSession } from '@/utils/withSession';
-import { NextApiRequest, NextApiResponse } from 'next';
-import { profanity, CensorType } from '@2toad/profanity';
+import { profanity } from '@2toad/profanity';
 
-export async function GET(req: Request) {
-    return await withSession(req, async (userId) => {
+export async function GET() {
+    return await withSession(async () => {
         const getBlogPosts = await prisma.post.findMany({
             take: 20,
             orderBy: {
@@ -27,7 +24,7 @@ export async function GET(req: Request) {
     });
 }
 export async function POST(req: Request) {
-    return await withSession(req, async (userId) => {
+    return await withSession(async (userId) => {
         const data = await req.json();
         const cleanContent = profanity.censor(data.content);
         const cleanTitle = profanity.censor(data.title);

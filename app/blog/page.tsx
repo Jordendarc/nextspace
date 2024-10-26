@@ -4,8 +4,8 @@ import { cookies } from "next/headers";
 import styles from '@/components/Posts/Post.module.css';
 import { PostWithAuthor } from "@/utils/types";
 
-export async function getBlogPosts() {
-    const posts = await fetch(`http://localhost:3000/api/posts`, {
+async function getBlogPosts() {
+    const posts = await fetch(`/api/posts`, {
         headers: {
             Cookie: cookies().toString(),
         },
@@ -15,7 +15,7 @@ export async function getBlogPosts() {
 }
 
 export default async function Blog() {
-    let posts: PostWithAuthor[] = await getBlogPosts();
+    const posts: PostWithAuthor[] = await getBlogPosts();
     return (
         <div>
             <h1>Blog</h1>

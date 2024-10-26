@@ -1,6 +1,7 @@
 import FollowButton from '@/components/FollowButton/FollowButton';
 import { prisma } from '@/lib/prisma';
 import { Metadata } from 'next';
+import Image from 'next/image';
 
 interface Props {
   params: {
@@ -15,13 +16,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function UserProfile({ params }: Props) {
   const user = await prisma.user.findUnique({ where: { id: params.id } });
-  const { name, bio, image, id } = user ?? {};
+  const { name, bio, image } = user ?? {};
 
   return (
     <div>
       <h1>{name}</h1>
 
-      <img
+      <Image
         width={300}
         src={image ?? '/mememan.webp'}
         alt={`${name}'s profile`}
